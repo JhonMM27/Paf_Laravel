@@ -10,9 +10,13 @@ class CategoriaController extends Controller
     /**
      * Display a listing of the resource.
      */
-    public function index()
+    public function index(Request $request)
     {
-        return view('categoria.index');
+        $texto = $request->get('texto');
+
+        $registros = Categoria::where('nombre','LIKE','%'.$texto.'%')->orWhere('id','LIKE','%'.$texto.'%')->orderBy('id','desc')->paginate(10);
+        return view('categoria.index', compact(['registros','texto']));
+        // return view('categoria.index');
     }
 
     /**

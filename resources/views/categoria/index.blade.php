@@ -9,32 +9,73 @@
             <div class="col-md-12">
                 <div class="card mb-4">
                     <div class="card-header">
-                        <h3 class="card-title">Bordered Table</h3>
+                        <h3 class="card-title">Categorías Table</h3>
                     </div>
                     <!-- /.card-header -->
-                    <div class="card-body">
-                        <table class="table table-bordered">
+                    <div class="card-body table-responsive">
+
+                        {{-- @if(Session::has('mensaje'))
+                    <div class="alert alert-info alert-dismissible fade show" role="alert">
+                        {{Session::get('mensaje')}}
+                        <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+                    </div>                    
+                    @endif
+
+                    @if(Session::has('error'))
+                    <div class="alert alert-warning alert-dismissible fade show" role="alert">
+                        {{Session::get('error')}}
+                        <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+                    </div>                    
+                    @endif --}}
+                    
+                    <form action="{{route('categorias.index')}}" method="GET" class="mb-3">
+                        <div class="input-group">
+                            <input type="text" name="texto" class="form-control" value="{{$texto}}" placeholder="Ingrese Texto a Buscar">
+                            <div class="input-group-append">
+                                <button class="btn btn-secondary" type="submit"><i class="fas fa-search"></i>Buscar</button>
+                                <a class="btn btn-primary" href="{{route('categorias.create')}}" >Nuevo</a>
+                            </div>
+                        </div>
+                    </form>
+
+
+                        <table class="table table-bordered table-hover table-stripes">
                             <thead>
                                 <tr>
-                                    <th style="width: 10px">#</th>
+                                    {{-- quito todo esto --}}
+                                    {{-- <th style="width: 10px">#</th>
                                     <th>Task</th>
                                     <th>Progress</th>
-                                    <th style="width: 40px">Label</th>
+                                    <th style="width: 40px">Label</th> --}}
+
+                                    <th>Opciones</th>
+                                    <th>ID</th>
+                                    <th>Nombre</th>
                                 </tr>
                             </thead>
                             <tbody>
+                                @if (count($registros)<= 0)
+                                    <tr>
+                                        <td colspan="3">No hay Registros de lo Buscado</td>
+                                    </tr>
+                                @else
+                                @foreach ($registros as $reg)                                    
+                                
                                 <tr class="align-middle">
-                                    <td>1.</td>
-                                    <td>Update software</td>
+                                    <td></td>
+                                    <td>{{$reg->id}}</td>
                                     <td>
-                                        <div class="progress progress-xs">
+                                        {{$reg->nombre}}
+                                        {{-- <div class="progress progress-xs">
                                             <div class="progress-bar progress-bar-danger"
                                                 style="width: 55%"></div>
-                                        </div>
+                                        </div> --}}
                                     </td>
-                                    <td><span class="badge text-bg-danger">55%</span></td>
+                                    {{-- <td><span class="badge text-bg-danger">55%</span></td> --}}
+                                    
                                 </tr>
-                                <tr class="align-middle">
+
+                                {{-- <tr class="align-middle">
                                     <td>2.</td>
                                     <td>Clean database</td>
                                     <td>
@@ -66,19 +107,21 @@
                                         </div>
                                     </td>
                                     <td><span class="badge text-bg-success">90%</span></td>
-                                </tr>
+                                </tr> --}}
+                                @endforeach
+                                @endif
                             </tbody>
                         </table>
                     </div>
                     <!-- /.card-body -->
                     <div class="card-footer clearfix">
-                        <ul class="pagination pagination-sm m-0 float-end">
+                        {{-- <ul class="pagination pagination-sm m-0 float-end">
                             <li class="page-item"><a class="page-link" href="#">&laquo;</a></li>
                             <li class="page-item"><a class="page-link" href="#">1</a></li>
                             <li class="page-item"><a class="page-link" href="#">2</a></li>
                             <li class="page-item"><a class="page-link" href="#">3</a></li>
                             <li class="page-item"><a class="page-link" href="#">&raquo;</a></li>
-                        </ul>
+                        </ul> --}}
                     </div>
                 </div>
                 {{-- <!-- /.card -->
