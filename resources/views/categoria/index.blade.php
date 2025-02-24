@@ -6,27 +6,29 @@
     <div class="container-fluid">
         <!--begin::Row-->
         <div class="row">
-            <div class="col-md-12">
                 <div class="card mb-4">
                     <div class="card-header">
                         <h3 class="card-title">Categorías Table</h3>
                     </div>
+                    
                     <!-- /.card-header -->
                     <div class="card-body table-responsive">
-
-                        {{-- @if(Session::has('mensaje'))
-                    <div class="alert alert-info alert-dismissible fade show" role="alert">
-                        {{Session::get('mensaje')}}
-                        <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
-                    </div>                    
-                    @endif
-
-                    @if(Session::has('error'))
-                    <div class="alert alert-warning alert-dismissible fade show" role="alert">
-                        {{Session::get('error')}}
-                        <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
-                    </div>                    
-                    @endif --}}
+                        <div class="col-md-12">
+                            <div class=" mb-1.5">
+                                @if(Session::has('mensaje'))
+                                <div class="alert alert-info alert-dismissible fade show" role="alert">
+                                    {{Session::get('mensaje')}}
+                                    <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+                                </div>                    
+                                @endif
+            
+                                @if(Session::has('error'))
+                                <div class="alert alert-warning alert-dismissible fade show" role="alert">
+                                    {{Session::get('error')}}
+                                    <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+                                </div>                    
+                                @endif
+                            </div>
                     
                     <form action="{{route('categorias.index')}}" method="GET" class="mb-3">
                         <div class="input-group">
@@ -62,7 +64,10 @@
                                 @foreach ($registros as $reg)                                    
                                 
                                 <tr class="align-middle">
-                                    <td></td>
+                                    <td>
+                                        <a href="{{route('categorias.edit',$reg->id)}}" class="btn btn-secondary btm-sm">&#9998;</a>
+                                        <button class="btn btn-secondary btn-sm" data-bs-toggle="modal" data-bs-target="#modal-eliminar-{{$reg->id}}">&#128465;</button>
+                                    </td>
                                     <td>{{$reg->id}}</td>
                                     <td>
                                         {{$reg->nombre}}
@@ -108,13 +113,15 @@
                                     </td>
                                     <td><span class="badge text-bg-success">90%</span></td>
                                 </tr> --}}
+                                @include('categoria.delete')
                                 @endforeach
                                 @endif
                             </tbody>
                         </table>
                     </div>
                     <!-- /.card-body -->
-                    <div class="card-footer clearfix">
+                    <div class="card-footer clearfix table-responsive">
+                        {{$registros->appends(["texto" => $texto])}}
                         {{-- <ul class="pagination pagination-sm m-0 float-end">
                             <li class="page-item"><a class="page-link" href="#">&laquo;</a></li>
                             <li class="page-item"><a class="page-link" href="#">1</a></li>
